@@ -7,7 +7,27 @@
 #define BUFFER_WIDTH TOTAL_WIDTH
 #define BUFFER_HEIGHT TOTAL_HEIGHT
 
+static void display_map(const game_state_t* state);
+static void display_resource_status(const game_state_t* state);
+static void display_unit_status(const game_state_t* state);
+static void display_messages(const game_state_t* state);
+static void display_commands(const game_state_t* state);
+
 static char front_buffer[BUFFER_HEIGHT][BUFFER_WIDTH];  // 프론트 버퍼
+
+// 이걸 사용하는 의미가 없음
+// 프론트 버퍼가 이미 있음
+
+// 너는 이걸 구현해 놨을 거 같음
+// 이걸 그냥 그대로 stdout에 박을 방법을 찾으면 좋음
+// 
+// back_buffer: BUFFER_HEIGHT * (BUFFER_WIDTH + 1)
+// 각 열 맨 오른쪽에다가 '\n' 넣으세요
+// 맨 마지막에다가요 '\0' 넣으세요
+// 
+// 출력할 때 그냥 printf(back_buffer) 해 보세요
+// 바로 출력됨
+// 
 static char back_buffer[BUFFER_HEIGHT][BUFFER_WIDTH];   // 백 버퍼
 
 // 버퍼를 초기화하는 함수
@@ -39,38 +59,40 @@ void flip_display(void)
 }
 
 // 화면 전체를 클리어하는 함수 (매번 호출되지 않도록 주의)
-void clear_screen(void)
-{
-    system("cls");
-}
+//void clear_screen(void)
+//{
+//    system("cls");
+//}
 
 // 전체 게임 화면을 백 버퍼에 그리는 함수
 void display_game(const game_state_t* state)
 {
     clear_draw_buffer();  // 백 버퍼를 초기화
-    
     // 맵을 백 버퍼에 표시
     display_map(state);
-    
+#if 0
+
     // 자원 상태 표시
     display_resource_status(state);
-    
+
     // 상태창 표시 (선택된 유닛/지형 정보)
     display_unit_status(state);
-    
+
     // 시스템 메시지 표시
     display_messages(state);
-    
+
     // 명령어 창 표시
     display_commands(state);
 
     flip_display();  // 변경된 내용을 화면에 출력
+#endif
+
 }
 
 // 맵을 백 버퍼에 그리는 함수
 static void display_map(const game_state_t* state)
 {
-    draw_border(0, 0, MAP_HEIGHT, MAP_WIDTH);  // 맵 경계를 그립니다.
+    //draw_border(0, 0, MAP_HEIGHT, MAP_WIDTH);  // 맵 경계를 그립니다.
     
     for (int row = 1; row < MAP_HEIGHT - 1; row++) {
         for (int col = 1; col < MAP_WIDTH - 1; col++) {

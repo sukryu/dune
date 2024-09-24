@@ -9,6 +9,7 @@
 // 전역 게임 상태
 static game_state_t game_state;
 
+
 // 샘플 오브젝트 (나중에 제거 예정)
 typedef struct {
     position_t pos;
@@ -85,6 +86,7 @@ static void init_game(void) {
 
     // 자원 초기화
     game_state.player_resource = (resource_t){0, 1000, 0, 100};
+    game_state.ai_resource = (resource_t){ 0, 1000, 0, 100 };
 
     // 게임 시간 초기화
     game_state.game_time = 0;
@@ -93,7 +95,8 @@ static void init_game(void) {
 static void intro(void) {
     printf("DUNE 1.5\n");
     Sleep(2000);
-    clear_screen();
+    //clear_screen();
+    system("cls");
 }
 
 static void outro(void) {
